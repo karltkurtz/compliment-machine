@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~*~ DONATE ~*~</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000080;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px),
+                url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2r9//38gYGAEESAAEGAAasgJOgzJSQkAAAAASUVORK5CYII=');
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+            color: #00FF00;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: twinkle 3s infinite;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #000080, #000040);
+            border: 5px ridge gold;
+            padding: 20px;
+            box-shadow: 0 0 30px #FFD700;
+        }
+
+        @keyframes rainbow {
+            0% { color: #FF0000; }
+            14% { color: #FF7F00; }
+            28% { color: #FFFF00; }
+            42% { color: #00FF00; }
+            57% { color: #0000FF; }
+            71% { color: #4B0082; }
+            85% { color: #9400D3; }
+            100% { color: #FF0000; }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            animation: rainbow 3s linear infinite;
+            text-shadow: 3px 3px 0px #000000, 
+                         -1px -1px 0px #FFFFFF,
+                         2px 2px 10px #FFD700;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #FFFF00;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        marquee {
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            color: #000000;
+            padding: 10px;
+            border: 2px solid #FFFFFF;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2em;
+        }
+
+        .content-section {
+            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            border: 3px ridge #FFFFFF;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .content-title {
+            background: linear-gradient(to right, #008000, #00FF00, #008000);
+            color: #000000;
+            padding: 10px;
+            border: 3px solid #000000;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .venmo-link {
+            display: inline-block;
+            background: linear-gradient(to bottom, #3D95CE, #2C6E91);
+            color: #FFFFFF;
+            border: 4px outset #FFFFFF;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Comic Sans MS', cursive;
+            text-shadow: 2px 2px 0px #000000;
+            box-shadow: 5px 5px 0px #000000;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .venmo-link:hover {
+            background: linear-gradient(to bottom, #4DA5DE, #3D95CE);
+        }
+
+        .venmo-link:active {
+            border-style: inset;
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #C0C0C0;
+            border: 3px outset #FFFFFF;
+            padding: 10px 20px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .back-button:active {
+            border-style: inset;
+        }
+
+        .back-button:hover {
+            background: #FFFFFF;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: #000080;
+            border: 3px ridge #00FFFF;
+            color: #00FFFF;
+        }
+
+        .info-box {
+            background: #FFFF00;
+            color: #000000;
+            padding: 15px;
+            border: 3px solid #000000;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .feature-list {
+            background: #FFFFFF;
+            color: #000000;
+            padding: 15px;
+            border: 3px inset #808080;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .amount-buttons {
+            margin: 20px 0;
+        }
+
+        .amount-button {
+            display: inline-block;
+            background: #00FF00;
+            color: #000000;
+            border: 3px outset #FFFFFF;
+            padding: 10px 20px;
+            margin: 5px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .amount-button:hover {
+            background: #00DD00;
+        }
+
+        .amount-button:active {
+            border-style: inset;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        for(let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(star);
+        }
+    </script>
+
+    <div class="container">
+        <marquee behavior="scroll" direction="left" scrollamount="6">
+            💰 SUPPORT THE COMPLIMENT MACHINE! 💰 EVERY PENNY HELPS! 💰
+        </marquee>
+
+        <h1>~*~ DONATE ~*~</h1>
+        <p class="subtitle">※ Help Keep This Site Running! ※</p>
+
+        <div class="divider">💵💰💵💰💵💰💵💰💵</div>
+
+        <center>
+            <a href="/" class="back-button">« BACK TO COMPLIMENTS »</a>
+        </center>
+
+        <div class="content-section">
+            <div class="content-title">
+                💚 SUPPORT VIA VENMO 💚
+            </div>
+
+            <center>
+                <p style="font-size: 1.3em; margin: 20px 0; font-weight: bold;">
+                    Enjoying the compliments?<br>
+                    <span style="font-size: 0.9em;">Help keep the positivity flowing!</span>
+                </p>
+
+                <div class="feature-list">
+                    <strong>Your donation helps with:</strong>
+                    <ul style="margin: 10px 0 10px 30px;">
+                        <li>Raspberry Pi hosting costs</li>
+                        <li>Server electricity</li>
+                        <li>Domain & bandwidth</li>
+                        <li>Adding new features</li>
+                        <li>My caffeine addiction ☕</li>
+                    </ul>
+                </div>
+
+                <p style="font-size: 1.1em; margin: 20px 0;">
+                    <strong>Choose an amount:</strong>
+                </p>
+
+                <div class="amount-buttons">
+                    <a href="https://venmo.com/?txn=pay&audience=public&recipients=YOUR-VENMO-USERNAME&amount=0.01&note=Compliment%20Machine%20-%201%C2%A2" class="amount-button">
+                        💵 1¢
+                    </a>
+                    <a href="https://venmo.com/?txn=pay&audience=public&recipients=YOUR-VENMO-USERNAME&amount=0.25&note=Compliment%20Machine%20-%2025%C2%A2" class="amount-button">
+                        💵 25¢
+                    </a>
+                    <a href="https://venmo.com/?txn=pay&audience=public&recipients=YOUR-VENMO-USERNAME&amount=1.00&note=Compliment%20Machine%20-%20$1" class="amount-button">
+                        💵 $1
+                    </a>
+                </div>
+
+                <p style="margin: 20px 0;">Or custom amount:</p>
+
+                <a href="https://venmo.com/YOUR-VENMO-USERNAME" class="venmo-link" target="_blank">
+                    💙 OPEN VENMO 💙
+                </a>
+
+                <div class="info-box blink">
+                    ⚠️ IMPORTANT: Replace "YOUR-VENMO-USERNAME" in the code with your actual Venmo username! ⚠️
+                </div>
+
+                <p style="margin-top: 20px; font-size: 0.9em; line-height: 1.6;">
+                    <strong>Don't have Venmo?</strong><br>
+                    No worries! Just enjoy the compliments. 😊<br>
+                    Your visits and smiles are payment enough!
+                </p>
+            </center>
+        </div>
+
+        <div class="divider">⭐💫⭐💫⭐💫⭐💫⭐</div>
+
+        <div style="background: #C0C0C0; border: 3px inset #808080; padding: 20px; margin: 20px 0; color: #000000; text-align: center;">
+            <p style="font-size: 1.1em; font-weight: bold; margin-bottom: 10px;">
+                🌟 THANK YOU FOR YOUR SUPPORT! 🌟
+            </p>
+            <p style="line-height: 1.6;">
+                Every contribution, no matter how small, helps keep this<br>
+                little corner of positivity alive on the internet!
+            </p>
+        </div>
+
+        <div class="footer">
+            <p style="margin-bottom: 10px;">
+                ※ Made with ❤️ and a Raspberry Pi ※
+            </p>
+            <a href="/" class="back-button" style="display: inline-block; margin-top: 10px;">[ BACK TO MAIN ]</a>
+        </div>
+    </div>
+</body>
+</html>

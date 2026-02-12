@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.Python
+
+# Vercel
+.vercel
+
+# OS
+.DS_Store
+
+# Data files
+*.json
+!vercel.json

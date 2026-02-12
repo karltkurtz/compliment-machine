@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~*~ RANDOM COMPLIMENT MACHINE ~*~</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000080;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px),
+                url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2r9//38gYGAEESAAEGAAasgJOgzJSQkAAAAASUVORK5CYII=');
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+            color: #00FF00;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Starry background effect */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: twinkle 3s infinite;
+        }
+
+        /* UNDER CONSTRUCTION TAPE */
+        .construction {
+            background: repeating-linear-gradient(
+                45deg,
+                #FFD700,
+                #FFD700 20px,
+                #000000 20px,
+                #000000 40px
+            );
+            color: red;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            border: 3px solid #FFD700;
+            margin-bottom: 20px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #000080, #000040);
+            border: 5px ridge gold;
+            padding: 20px;
+            box-shadow: 0 0 30px #00FF00;
+        }
+
+        /* Animated rainbow text */
+        @keyframes rainbow {
+            0% { color: #FF0000; }
+            14% { color: #FF7F00; }
+            28% { color: #FFFF00; }
+            42% { color: #00FF00; }
+            57% { color: #0000FF; }
+            71% { color: #4B0082; }
+            85% { color: #9400D3; }
+            100% { color: #FF0000; }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            animation: rainbow 3s linear infinite;
+            text-shadow: 3px 3px 0px #000000, 
+                         -1px -1px 0px #FFFFFF,
+                         2px 2px 10px #00FF00;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #FFFF00;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+
+        /* Scrolling marquee */
+        marquee {
+            background: #FF00FF;
+            color: #FFFF00;
+            padding: 10px;
+            border: 2px solid #00FFFF;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .main-content {
+            background: #C0C0C0;
+            border: 3px inset #808080;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* 90s table layout */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        .webcam-section {
+            background: #000000;
+            border: 3px outset #808080;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .webcam-title {
+            background: linear-gradient(to right, #000080, #0000FF, #000080);
+            color: #FFFFFF;
+            padding: 5px;
+            border: 2px solid #FFFFFF;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .webcam-feed {
+            width: 100%;
+            height: 300px;
+            background: #000000;
+            border: 3px inset #808080;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .webcam-feed img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .webcam-placeholder {
+            color: #00FF00;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+
+        /* THE BUTTON */
+        .button-section {
+            text-align: center;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQYV2NkYGD4z8DAwMgABXAGNgGwSgYYR7YRpgFZAABgPQMCmHe0/gAAAABJRU5ErkJggg==') repeat;
+            padding: 20px;
+            border: 3px groove #808080;
+        }
+
+        .compliment-button {
+            background: linear-gradient(to bottom, #FF0080, #8000FF);
+            color: #FFFFFF;
+            border: 4px outset #FFFFFF;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            text-shadow: 2px 2px 0px #000000;
+            box-shadow: 5px 5px 0px #000000;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .compliment-button:hover {
+            background: linear-gradient(to bottom, #FF00FF, #00FFFF);
+            border-color: #FFFF00;
+        }
+
+        .compliment-button:active {
+            border-style: inset;
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        .compliment-button:disabled {
+            background: #808080;
+            cursor: not-allowed;
+            animation: none;
+        }
+
+        /* Compliment display */
+        .compliment-display {
+            margin-top: 20px;
+            padding: 20px;
+            background: #FFFFFF;
+            border: 5px ridge #FFD700;
+            color: #000080;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .compliment-display.golden {
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+            animation: sparkle 1s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { box-shadow: 0 0 20px #FFD700; }
+            50% { box-shadow: 0 0 40px #FFA500; }
+        }
+
+        /* Hit counter style stats */
+        .stats-section {
+            background: #000000;
+            border: 3px groove #808080;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-counter {
+            display: inline-block;
+            background: #000000;
+            color: #00FF00;
+            border: 2px inset #808080;
+            padding: 10px 20px;
+            margin: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+        }
+
+        .stat-label {
+            color: #FFFF00;
+            font-size: 0.9em;
+        }
+
+        /* Cooldown timer */
+        .cooldown {
+            color: #FF0000;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* Web buttons */
+        .web-buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .web-button {
+            display: inline-block;
+            background: #C0C0C0;
+            border: 2px outset #FFFFFF;
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 0.9em;
+            color: #000000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .web-button:active {
+            border-style: inset;
+        }
+
+        .web-button:hover {
+            background: #FFFFFF;
+        }
+
+        /* Flame divider */
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2em;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #FFFF00;
+            border-radius: 50%;
+            border-top-color: #FF00FF;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: #000080;
+            border: 3px ridge #00FFFF;
+        }
+
+        /* Visitor counter */
+        .visitor-counter {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #000000;
+            border: 2px solid #00FF00;
+        }
+
+        /* Donation button */
+        .donation-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            border: 3px ridge #FFFFFF;
+        }
+
+        .donate-button {
+            background: linear-gradient(to bottom, #00FF00, #008000);
+            color: #000000;
+            border: 4px outset #FFFFFF;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            text-shadow: 1px 1px 0px #FFFFFF;
+            box-shadow: 5px 5px 0px #000000;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(to bottom, #00FFFF, #008080);
+        }
+
+        .donate-button:active {
+            border-style: inset;
+            box-shadow: 2px 2px 0px #000000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Create random stars -->
+    <script>
+        for(let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(star);
+        }
+    </script>
+
+    <div class="container">
+        <!-- Under Construction Banner -->
+        <div class="construction">
+            ⚠️ UNDER CONSTRUCTION ⚠️ THIS SITE IS BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 ⚠️
+        </div>
+
+        <!-- Scrolling text -->
+        <marquee behavior="scroll" direction="left" scrollamount="6">
+            ✨ WELCOME TO THE RANDOM COMPLIMENT MACHINE! ✨ YOU ARE VISITOR #<span id="visitorNum">1337</span>! ✨ PLEASE SIGN MY GUESTBOOK! ✨
+        </marquee>
+
+        <!-- Main title -->
+        <h1>~*~ COMPLIMENT MACHINE ~*~</h1>
+        <p class="subtitle">※ Spreading Positivity Since 1998 ※</p>
+
+        <!-- Flame divider -->
+        <div class="divider">🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥</div>
+
+        <!-- Main content table -->
+        <div class="main-content">
+            <table>
+                <tr>
+                    <!-- Left column: Coming Soon -->
+                    <td width="50%">
+                        <div class="webcam-section">
+                            <div class="webcam-title">
+                                ♫♪ LIVE WEBCAM ♪♫
+                            </div>
+                            <div class="webcam-feed">
+                                <div class="webcam-placeholder">
+                                    <div style="font-size: 3em; margin-bottom: 10px;">🚧</div>
+                                    <p style="font-size: 1.2em; font-weight: bold;">COMING SOON!</p>
+                                    <p style="font-size: 0.9em; margin-top: 10px;">
+                                        Live LCD display will appear here<br>
+                                        once the Raspberry Pi arrives!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Right column: Button -->
+                    <td width="50%">
+                        <div class="button-section">
+                            <p style="color: #FFFF00; font-size: 1.2em; margin-bottom: 15px;">
+                                ★ CLICK HERE ★<br>
+                                ↓ ↓ ↓
+                            </p>
+                            
+                            <button class="compliment-button" id="complimentBtn" onclick="getCompliment()">
+                                ✨ GET<br>COMPLIMENT ✨
+                            </button>
+
+                            <div class="cooldown" id="cooldown" style="display: none;">
+                                ⏰ WAIT <span id="cooldownTime">3</span>s ⏰
+                            </div>
+
+                            <div class="compliment-display" id="complimentDisplay">
+                                <div>
+                                    <div style="font-size: 1em;">
+                                        Press the button to receive<br>
+                                        ★ YOUR COMPLIMENT ★<br>
+                                        of the day!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Donation Section -->
+        <div class="donation-section">
+            <p style="color: #000000; font-weight: bold; margin-bottom: 10px;">
+                💰 Enjoying the compliments? 💰
+            </p>
+            <a href="/donate" class="donate-button">
+                💵 DONATE 1¢ TO KEEP THIS SITE ALIVE! 💵
+            </a>
+        </div>
+
+        <!-- Stats section -->
+        <div class="stats-section">
+            <center>
+                <p class="stat-label">★ COMPLIMENT STATISTICS ★</p>
+                <div class="stat-counter">
+                    TOTAL: <span id="totalCount" style="color: #00FF00;">0</span>
+                </div>
+                <div class="stat-counter">
+                    GOLDEN: <span id="goldenCount" style="color: #FFD700;">0</span>
+                </div>
+            </center>
+        </div>
+
+        <!-- Web buttons -->
+        <div class="web-buttons">
+            <a href="/guestbook" class="web-button" style="color: #000000; text-decoration: none;">[ GUESTBOOK ]</a>
+            <a href="/contact" class="web-button" style="color: #000000; text-decoration: none;">[ EMAIL ME ]</a>
+        </div>
+
+        <div class="divider">💫⭐💫⭐💫⭐💫⭐💫⭐💫</div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p style="color: #00FFFF; margin-bottom: 10px;">
+                ※ Made with ❤️ and a Raspberry Pi ※
+            </p>
+            <marquee behavior="alternate" width="60%">
+                <font color="#FFFF00">★ 1% CHANCE OF GOLDEN COMPLIMENT! ★</font>
+            </marquee>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="88" height="31" alt="Best viewed in Netscape" style="background: #C0C0C0; border: 2px outset #FFF; padding: 3px; vertical-align: middle;">
+                <span style="color: #00FF00;">This site is Y2K compliant!</span>
+            </p>
+        </div>
+
+        <!-- Visitor counter -->
+        <div class="visitor-counter">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="15" height="20" style="background: #000; border: 1px solid #0F0; display: inline-block; margin: 0 2px;">
+            <font color="#00FF00" face="Courier New">
+                You are visitor #<span id="totalCountFooter">0</span>
+            </font>
+        </div>
+    </div>
+
+    <script>
+        let cooldownActive = false;
+
+        // Random visitor number
+        document.getElementById('visitorNum').textContent = Math.floor(Math.random() * 9999) + 1000;
+
+        // Load initial stats
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const stats = await response.json();
+                document.getElementById('totalCount').textContent = stats.total_compliments;
+                document.getElementById('goldenCount').textContent = stats.golden_count;
+                document.getElementById('totalCountFooter').textContent = stats.total_compliments;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Get a new compliment
+        async function getCompliment() {
+            if (cooldownActive) return;
+
+            const btn = document.getElementById('complimentBtn');
+            const display = document.getElementById('complimentDisplay');
+            
+            // Disable button and show loading
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span><br>LOADING...';
+            
+            try {
+                const response = await fetch('/api/get_compliment');
+                const data = await response.json();
+                
+                // Update display (removed category badge)
+                display.className = 'compliment-display' + (data.is_golden ? ' golden' : '');
+                display.innerHTML = `
+                    <div>
+                        <div style="font-size: 1.1em;">${escapeHtml(data.text)}</div>
+                    </div>
+                `;
+                
+                // Update stats
+                document.getElementById('totalCount').textContent = data.number;
+                document.getElementById('totalCountFooter').textContent = data.number;
+                if (data.is_golden) {
+                    const goldenCount = document.getElementById('goldenCount');
+                    goldenCount.textContent = parseInt(goldenCount.textContent) + 1;
+                }
+                
+                // Start cooldown
+                startCooldown();
+                
+            } catch (error) {
+                console.error('Error getting compliment:', error);
+                display.innerHTML = '<div>ERROR! Try again!</div>';
+                btn.disabled = false;
+                btn.innerHTML = '✨ GET<br>COMPLIMENT ✨';
+            }
+        }
+
+        // Cooldown timer
+        function startCooldown() {
+            cooldownActive = true;
+            const btn = document.getElementById('complimentBtn');
+            const cooldownDiv = document.getElementById('cooldown');
+            const cooldownTime = document.getElementById('cooldownTime');
+            
+            btn.style.display = 'none';
+            cooldownDiv.style.display = 'block';
+            
+            let timeLeft = 3;
+            cooldownTime.textContent = timeLeft;
+            
+            const interval = setInterval(() => {
+                timeLeft--;
+                cooldownTime.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    cooldownActive = false;
+                    btn.style.display = 'inline-block';
+                    btn.disabled = false;
+                    btn.innerHTML = '✨ GET<br>COMPLIMENT ✨';
+                    cooldownDiv.style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load stats on page load
+        loadStats();
+        setInterval(loadStats, 30000);
+    </script>
+</body>
+</html>
