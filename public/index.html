@@ -509,25 +509,82 @@
 
     <script>
         let cooldownActive = false;
+        
+        // Compliments database - client-side
+        const COMPLIMENTS = {
+            'motivational': [
+                "You're capable of amazing things!",
+                "Today is your day to shine",
+                "You're stronger than you know",
+                "Your potential is limitless",
+                "You're making progress every day",
+                "Believe in yourself - we do!",
+                "You've got this!",
+                "Your future is bright",
+                "You're doing better than you think",
+                "Keep going, you're almost there"
+            ],
+            'affirming': [
+                "You are enough, just as you are",
+                "You deserve good things",
+                "You matter more than you know",
+                "You're exactly where you need to be",
+                "Your presence makes a difference",
+                "You are worthy of love and respect",
+                "You're more resilient than you realize",
+                "Your journey is valuable",
+                "You bring light to the world",
+                "Someone is proud of you right now"
+            ],
+            'silly': [
+                "You're cooler than the other side of the pillow",
+                "You're the reason the gene pool needs a lifeguard",
+                "If you were a vegetable, you'd be a cute-cumber",
+                "You're so awesome, you make onions cry",
+                "You're the human equivalent of a high-five",
+                "Your smile could power a small city",
+                "You're like a software update - whenever I see you, I think 'not now'... just kidding, you're perfect!",
+                "You're the reason bubble wrap was invented",
+                "You're more fun than a ball pit",
+                "Even your typos are endearing"
+            ],
+            'deep': [
+                "Your story isn't over yet",
+                "The universe conspired to create you",
+                "You're writing your own legend",
+                "Your kindness creates ripples in time",
+                "You're part of something greater",
+                "Every breath you take is a victory",
+                "You're a unique expression of existence",
+                "Your struggles are shaping your strength",
+                "You're exactly who you're meant to be",
+                "The world is better with you in it"
+            ],
+            'golden': [
+                "✨ GOLDEN COMPLIMENT ✨\nYou are extraordinary in ways words can barely capture",
+                "✨ GOLDEN COMPLIMENT ✨\nYour existence is a gift to those around you",
+                "✨ GOLDEN COMPLIMENT ✨\nYou have infinite worth simply by being you",
+                "✨ GOLDEN COMPLIMENT ✨\nThe universe smiled when you were born"
+            ]
+        };
+
+        // Stats stored in localStorage
+        function loadStats() {
+            const stats = JSON.parse(localStorage.getItem('complimentStats') || '{"total_compliments":0,"golden_count":0}');
+            document.getElementById('totalCount').textContent = stats.total_compliments;
+            document.getElementById('goldenCount').textContent = stats.golden_count;
+            document.getElementById('totalCountFooter').textContent = stats.total_compliments;
+        }
+
+        function saveStats(stats) {
+            localStorage.setItem('complimentStats', JSON.stringify(stats));
+        }
 
         // Random visitor number
         document.getElementById('visitorNum').textContent = Math.floor(Math.random() * 9999) + 1000;
 
-        // Load initial stats
-        async function loadStats() {
-            try {
-                const response = await fetch('/api/stats');
-                const stats = await response.json();
-                document.getElementById('totalCount').textContent = stats.total_compliments;
-                document.getElementById('goldenCount').textContent = stats.golden_count;
-                document.getElementById('totalCountFooter').textContent = stats.total_compliments;
-            } catch (error) {
-                console.error('Error loading stats:', error);
-            }
-        }
-
         // Get a new compliment
-        async function getCompliment() {
+        function getCompliment() {
             if (cooldownActive) return;
 
             const btn = document.getElementById('complimentBtn');
@@ -537,35 +594,44 @@
             btn.disabled = true;
             btn.innerHTML = '<span class="loading"></span><br>LOADING...';
             
-            try {
-                const response = await fetch('/api/get_compliment');
-                const data = await response.json();
+            // Simulate API delay
+            setTimeout(() => {
+                // Get stats
+                const stats = JSON.parse(localStorage.getItem('complimentStats') || '{"total_compliments":0,"golden_count":0}');
                 
-                // Update display (removed category badge)
-                display.className = 'compliment-display' + (data.is_golden ? ' golden' : '');
+                // 1% chance of golden
+                let category, isGolden;
+                if (Math.random() < 0.01) {
+                    category = 'golden';
+                    isGolden = true;
+                    stats.golden_count++;
+                } else {
+                    const categories = ['motivational', 'motivational', 'motivational', 'motivational',
+                                      'affirming', 'affirming', 'affirming',
+                                      'silly', 'silly',
+                                      'deep'];
+                    category = categories[Math.floor(Math.random() * categories.length)];
+                    isGolden = false;
+                }
+                
+                const compliment = COMPLIMENTS[category][Math.floor(Math.random() * COMPLIMENTS[category].length)];
+                stats.total_compliments++;
+                saveStats(stats);
+                
+                // Update display
+                display.className = 'compliment-display' + (isGolden ? ' golden' : '');
                 display.innerHTML = `
                     <div>
-                        <div style="font-size: 1.1em;">${escapeHtml(data.text)}</div>
+                        <div style="font-size: 1.1em;">${escapeHtml(compliment)}</div>
                     </div>
                 `;
                 
                 // Update stats
-                document.getElementById('totalCount').textContent = data.number;
-                document.getElementById('totalCountFooter').textContent = data.number;
-                if (data.is_golden) {
-                    const goldenCount = document.getElementById('goldenCount');
-                    goldenCount.textContent = parseInt(goldenCount.textContent) + 1;
-                }
+                loadStats();
                 
                 // Start cooldown
                 startCooldown();
-                
-            } catch (error) {
-                console.error('Error getting compliment:', error);
-                display.innerHTML = '<div>ERROR! Try again!</div>';
-                btn.disabled = false;
-                btn.innerHTML = '✨ GET<br>COMPLIMENT ✨';
-            }
+            }, 500);
         }
 
         // Cooldown timer
@@ -605,7 +671,6 @@
 
         // Load stats on page load
         loadStats();
-        setInterval(loadStats, 30000);
     </script>
 </body>
 </html>
